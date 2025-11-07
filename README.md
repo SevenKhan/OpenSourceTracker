@@ -21,12 +21,4 @@
 ```bash
 git clone git@github.com:SevenKhan/OpenSourceTracker.git
 cd OpenSourceTracker
-# OpenSourceTracker
 
-Tracker script for monitoring GitHub repositories.
-
-## Usage
-
-1. Activate virtual environment: `source venv/bin/activate` (local kullanım için)
-2. Run tracker: `python tracker.py`
-3. Automatic updates run hourly via GitHub Actions
