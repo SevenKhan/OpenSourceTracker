@@ -21,4 +21,3 @@
 ```bash
 git clone git@github.com:SevenKhan/OpenSourceTracker.git
 cd OpenSourceTracker
-
