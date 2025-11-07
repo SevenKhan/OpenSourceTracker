@@ -1,0 +1,82 @@
+{
+    "profile": {
+        "login": "SevenKhan",
+        "name": null,
+        "bio": "A Python enthusiast who loves getting lost in lines of code, finds solutions in the quiet of the terminal, and passionately explores how automation can simplify",
+        "public_repos": 10,
+        "followers": 43,
+        "following": 50
+    },
+    "repos": [
+        {
+            "name": "crypto-site",
+            "stars": 0,
+            "forks": 0,
+            "open_issues": 0,
+            "private": false
+        },
+        {
+            "name": "cypher-dawn-dapp",
+            "stars": 0,
+            "forks": 0,
+            "open_issues": 0,
+            "private": false
+        },
+        {
+            "name": "empires-puzzles-tactics",
+            "stars": 0,
+            "forks": 0,
+            "open_issues": 0,
+            "private": false
+        },
+        {
+            "name": "gunun-sozu",
+            "stars": 0,
+            "forks": 0,
+            "open_issues": 0,
+            "private": false
+        },
+        {
+            "name": "news-site",
+            "stars": 0,
+            "forks": 0,
+            "open_issues": 0,
+            "private": false
+        },
+        {
+            "name": "OpenSourceTracker",
+            "stars": 0,
+            "forks": 0,
+            "open_issues": 0,
+            "private": false
+        },
+        {
+            "name": "pixelpulse",
+            "stars": 2,
+            "forks": 0,
+            "open_issues": 0,
+            "private": false
+        },
+        {
+            "name": "SevenKhan",
+            "stars": 1,
+            "forks": 0,
+            "open_issues": 0,
+            "private": false
+        },
+        {
+            "name": "sevenkhan-music-universe",
+            "stars": 0,
+            "forks": 0,
+            "open_issues": 0,
+            "private": false
+        },
+        {
+            "name": "terminal-cleaner",
+            "stars": 1,
+            "forks": 0,
+            "open_issues": 0,
+            "private": false
+        }
+    ]
+}
