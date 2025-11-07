@@ -1,5 +1,5 @@
 # SevenKhan Open Source Tracker
-
+This repository enables automated data tracking and a dynamically updating GitHub profile through OpenSourceTracker
 Hi! 👋 I track my GitHub contributions and repository stats automatically.
 
 ## GitHub Stats
