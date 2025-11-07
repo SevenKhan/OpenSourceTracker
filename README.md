@@ -8,7 +8,9 @@
 
 - Automatic tracking of your GitHub statistics  
 - Dynamic update of your README/profile  
+- Tracks stars, forks, contributions, and repositories  
 - Easy to install and run  
+- Configurable output for your projects  
 
 ---
 
