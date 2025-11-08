@@ -117,3 +117,16 @@ Traceback (most recent call last):
     raise ValueError("GITHUB_PAT environment variable not set!")
 ValueError: GITHUB_PAT environment variable not set!
 ✅ README.md updated successfully!
+[main 64ed9da] Auto update tracker output and README
+ 1 file changed, 25 insertions(+)
+error: cannot pull with rebase: You have unstaged changes.
+error: please commit or stash them.
+To github.com:SevenKhan/OpenSourceTracker.git
+ ! [rejected]        main -> main (fetch first)
+error: failed to push some refs to 'github.com:SevenKhan/OpenSourceTracker.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+Tracker ve README güncellemesi tamamlandı!
