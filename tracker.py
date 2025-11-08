@@ -2,9 +2,10 @@ import os
 from github import Github, Auth
 import json
 
-TOKEN = os.environ.get("GITHUB_PAT")
-if not TOKEN:
-    raise ValueError("GITHUB_PAT environment variable not set!")
+token = os.getenv("MY_GITHUB_PAT")
+
+if not token:
+    raise ValueError("MY_GITHUB_PAT environment variable not set!")
 
 USERNAME = "SevenKhan"
 g = Github(auth=Auth.Token(TOKEN))
