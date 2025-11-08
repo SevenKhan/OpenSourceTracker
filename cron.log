@@ -42,3 +42,28 @@ Traceback (most recent call last):
     raise ValueError("GITHUB_PAT environment variable not set!")
 ValueError: GITHUB_PAT environment variable not set!
 ✅ README.md updated successfully!
+[main 25d10c4] Auto update tracker output and README
+ 1 file changed, 26 insertions(+)
+error: cannot pull with rebase: You have unstaged changes.
+error: please commit or stash them.
+To github.com:SevenKhan/OpenSourceTracker.git
+   cb127b5..25d10c4  main -> main
+Tracker ve README güncellemesi tamamlandı!
+Requirement already satisfied: pip in ./venv/lib/python3.10/site-packages (25.3)
+Requirement already satisfied: PyGithub in ./venv/lib/python3.10/site-packages (2.8.1)
+Requirement already satisfied: requests in ./venv/lib/python3.10/site-packages (2.32.5)
+Requirement already satisfied: pynacl>=1.4.0 in ./venv/lib/python3.10/site-packages (from PyGithub) (1.6.0)
+Requirement already satisfied: pyjwt>=2.4.0 in ./venv/lib/python3.10/site-packages (from pyjwt[crypto]>=2.4.0->PyGithub) (2.10.1)
+Requirement already satisfied: typing-extensions>=4.5.0 in ./venv/lib/python3.10/site-packages (from PyGithub) (4.15.0)
+Requirement already satisfied: urllib3>=1.26.0 in ./venv/lib/python3.10/site-packages (from PyGithub) (2.5.0)
+Requirement already satisfied: charset_normalizer<4,>=2 in ./venv/lib/python3.10/site-packages (from requests) (3.4.4)
+Requirement already satisfied: idna<4,>=2.5 in ./venv/lib/python3.10/site-packages (from requests) (3.11)
+Requirement already satisfied: certifi>=2017.4.17 in ./venv/lib/python3.10/site-packages (from requests) (2025.10.5)
+Requirement already satisfied: cryptography>=3.4.0 in ./venv/lib/python3.10/site-packages (from pyjwt[crypto]>=2.4.0->PyGithub) (46.0.3)
+Requirement already satisfied: cffi>=2.0.0 in ./venv/lib/python3.10/site-packages (from cryptography>=3.4.0->pyjwt[crypto]>=2.4.0->PyGithub) (2.0.0)
+Requirement already satisfied: pycparser in ./venv/lib/python3.10/site-packages (from cffi>=2.0.0->cryptography>=3.4.0->pyjwt[crypto]>=2.4.0->PyGithub) (2.23)
+Traceback (most recent call last):
+  File "/home/sevenkhan/OpenSourceTracker_clean/tracker.py", line 7, in <module>
+    raise ValueError("GITHUB_PAT environment variable not set!")
+ValueError: GITHUB_PAT environment variable not set!
+✅ README.md updated successfully!
