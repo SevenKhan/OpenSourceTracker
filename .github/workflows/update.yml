@@ -1,0 +1,50 @@
+name: Update README & NFT Stats
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # Türkiye saati 09:00
+  workflow_dispatch:
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        pip install PyGithub requests beautifulsoup4
+
+    - name: Run tracker script (safe mode)
+      run: |
+        if [ -z "${{ secrets.MY_GITHUB_PAT }}" ]; then
+          echo "⚠️ MY_GITHUB_PAT secret not set. Skipping tracker run."
+          echo "Tracker skipped" >> tracker_status.txt
+        else
+          export MY_GITHUB_PAT=${{ secrets.MY_GITHUB_PAT }}
+          python tracker.py || echo "⚠️ Tracker script had errors"
+          echo "✅ Tracker ran" >> tracker_status.txt
+        fi
+
+    - name: Update NFT stats
+      run: |
+        python update_nft_stats.py || echo "⚠️ NFT stats update failed"
+
+    - name: Update README
+      run: |
+        python update_readme.py || echo "⚠️ README update skipped due to earlier issues"
+
+    - name: Commit and push changes
+      run: |
+        git config user.name "github-actions"
+        git config user.email "github-actions@github.com"
+        git add README.md || echo "No changes to add"
+        git commit -m "Update README & NFT stats" || echo "No changes to commit"
+        git push || echo "Push skipped"
