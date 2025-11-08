@@ -19,25 +19,43 @@ jobs:
         python-version: '3.10'
 
     - name: Install dependencies
-      run: pip install PyGithub
+      run: |
+        echo "📦 Installing PyGithub..."
+        pip install PyGithub
 
     - name: Run tracker script (safe mode)
       run: |
         if [ -z "${{ secrets.MY_GITHUB_PAT }}" ]; then
-          echo "⚠️  Warning: MY_GITHUB_PAT secret is not set. Skipping tracker run."
+          echo "⚠️ MY_GITHUB_PAT secret not set. Skipping tracker run."
+          echo "Tracker skipped" >> tracker_status.txt
         else
           export MY_GITHUB_PAT=${{ secrets.MY_GITHUB_PAT }}
-          python tracker.py || echo "⚠️ Tracker script exited with an error, but continuing..."
+          if python tracker.py; then
+            echo "✅ Tracker ran successfully" >> tracker_status.txt
+          else
+            echo "⚠️ Tracker script had errors" >> tracker_status.txt
+          fi
         fi
 
     - name: Update README
-      run: python update_readme.py || echo "⚠️ README update skipped due to earlier issues."
+      run: |
+        echo "📝 Updating README..."
+        if python update_readme.py; then
+          echo "✅ README updated successfully" >> tracker_status.txt
+        else
+          echo "⚠️ README update skipped due to earlier issues" >> tracker_status.txt
+        fi
+
+    - name: Show summary
+      run: |
+        echo "📊 Workflow summary:"
+        cat tracker_status.txt || echo "No actions were performed."
 
     - name: Commit and push changes
       run: |
         git config user.name "github-actions"
         git config user.email "github-actions@github.com"
-        git add README.md
-        git commit -m "Update README with latest GitHub stats" || echo "No changes to commit."
-        git push
+        git add README.md || echo "No README changes to add"
+        git commit -m "Update README with latest GitHub stats" || echo "No changes to commit"
+        git push || echo "Push skipped"
 
