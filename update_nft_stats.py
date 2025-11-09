@@ -1,64 +1,67 @@
-import requests
-from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from webdriver_manager.chrome import ChromeDriverManager
+import time
 
-README_FILE = "README.md"
-START_MARKER = "<!-- NFT_STATS_START -->"
-END_MARKER = "<!-- NFT_STATS_END -->"
+# Chrome ayarları (WSL uyumlu headless)
+options = webdriver.ChromeOptions()
+options.add_argument("--headless=new")
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-dev-shm-usage")
+options.add_argument("--remote-debugging-port=9222")
+options.add_argument("--disable-gpu")
+options.add_argument("--disable-extensions")
+options.add_argument("--disable-software-rasterizer")
 
-URL = "https://crystara.trade/marketplace/pixelpulse"
+# Chromium driver kurulumu
+driver = webdriver.Chrome(
+    service=Service(ChromeDriverManager(chrome_type="chromium").install()),
+    options=options
+)
 
-# --- Sayfayı çek ---
-try:
-    resp = requests.get(URL)
-    resp.raise_for_status()
-    html = resp.text
-except Exception as e:
-    print(f"⚠️ Sayfa çekilemedi: {e}")
-    html = ""
+# PixelPulse sayfası
+url = "https://crystara.trade/marketplace/pixelpulse"
+driver.get(url)
 
-# --- BeautifulSoup ile parse ---
-soup = BeautifulSoup(html, "html.parser")
+# JS yüklenmesi için bekle
+time.sleep(7)  # gerekirse artırabilirsin
 
-# Örnek: floor price, toplam satış, sahip sayısı
-# (Sayfanın HTML yapısına göre selector’ları değiştirebilirsin)
-try:
-    floor_price = soup.select_one(".floor-price").text.strip()
-except:
-    floor_price = "N/A"
+# Verileri çek (Crystara sayfasının gerçek class/id'lerini buraya yaz)
+def safe_find(selector):
+    try:
+        return driver.find_element(By.CSS_SELECTOR, selector).text.strip()
+    except:
+        return "N/A"
 
-try:
-    total_sales = soup.select_one(".total-sales").text.strip()
-except:
-    total_sales = "N/A"
+# ⚠ Buradaki CSS selector'ları sayfayı inspect ederek güncelle
+floor_price = safe_find(".marketplace-floor-price")
+total_sales = safe_find(".marketplace-total-sales")
+owners = safe_find(".marketplace-owners")
+last_sale = safe_find(".marketplace-last-sale")
 
-try:
-    owners = soup.select_one(".owners-count").text.strip()
-except:
-    owners = "N/A"
+driver.quit()
 
-try:
-    last_sale = soup.select_one(".last-sale-date").text.strip()
-except:
-    last_sale = "N/A"
+# README güncelleme
+with open("README.md", "r") as f:
+    content = f.read()
 
-# --- README için içerik ---
-stats_md = f"""
+start_marker = "<!-- NFT_STATS_START -->"
+end_marker = "<!-- NFT_STATS_END -->"
+
+new_stats = f"""
 Floor Price: {floor_price}
 Total Sales: {total_sales}
 Owners: {owners}
 Last Sale: {last_sale}
 """
 
-# --- README güncelle ---
-with open(README_FILE, "r", encoding="utf-8") as f:
-    content = f.read()
+if start_marker in content and end_marker in content:
+    before = content.split(start_marker)[0]
+    after = content.split(end_marker)[1]
+    content = before + start_marker + "\n" + new_stats + "\n" + end_marker + after
 
-start_idx = content.find(START_MARKER) + len(START_MARKER)
-end_idx = content.find(END_MARKER)
-
-new_content = content[:start_idx] + "\n" + stats_md + "\n" + content[end_idx:]
-
-with open(README_FILE, "w", encoding="utf-8") as f:
-    f.write(new_content)
+with open("README.md", "w") as f:
+    f.write(content)
 
 print("✅ README NFT stats güncellendi!")
